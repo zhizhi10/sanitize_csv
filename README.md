@@ -23,4 +23,4 @@ The generated filename is sanitized_your_csv_file.csv
 
 ### warning
 
-“Due to the program’s inability to determine whether commas outside of quotation marks are separators, the cleaning result of `=1+2'" ;,=1+2` is `'=1+2'"" ;","'=1+2"`, not `'=1+2'"" ;,=1+2”`.
+Due to the program’s inability to determine whether commas outside of quotation marks are separators, the cleaning result of `=1+2'" ;,=1+2` is `'=1+2'"" ;","'=1+2"`, not `'=1+2'"" ;,=1+2”`.

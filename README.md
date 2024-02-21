@@ -7,7 +7,7 @@ cd sanitize_csv
 chmod +x sanitize_csv.py
 ./sanitize_csv.py your_csv_file.csv
 ```
-生成文件为sanitized_your_csv_file.csv
+The generated filename is sanitized_your_csv_file.csv
 
 ### Comparison Before and After Cleaning
 

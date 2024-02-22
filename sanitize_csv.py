@@ -38,28 +38,34 @@ def log(message):
 
 def main(user_args):
     input_csv_filename = os.path.abspath(user_args.input_csv)
-    output_dir = os.path.abspath(user_args.output_directory)
+    output_filename = os.path.abspath(user_args.output_filename)
 
     log(f"Input CSV file path: {input_csv_filename}")
-    log(f"Output directory: {output_dir}")
+    log(f"Output directory: {output_filename}")
 
     if not os.path.exists(input_csv_filename):
         log("Error: The input CSV file does not exist.")
         return
 
-    if output_dir and not os.path.exists(output_dir):
+    if user_args.output_filename == '.' and not os.path.exists(output_filename):
+        log("Error: The output directory does not exist.")
+        return
+    elif not os.path.exists(os.path.dirname(output_filename)):
         log("Error: The output directory does not exist.")
         return
 
     input_base_name = os.path.basename(input_csv_filename)
-    output_csv_filename = os.path.join(output_dir, 'clean_' + input_base_name)
-    process_csv(input_csv_filename, output_csv_filename)
+    if user_args.output_filename == '.':
+        output_csv_filename = os.path.join(output_filename, 'clean_' + input_base_name)
+        process_csv(input_csv_filename,output_csv_filename)
+    else:
+        process_csv(input_csv_filename, output_filename)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process and sanitize a CSV file.')
     parser.add_argument('input_csv', help='The input CSV file')
-    parser.add_argument('-o', '--output_directory', help='The output directory to save the cleaned CSV file', default='.')
+    parser.add_argument('-o', '--output_filename', help='The output filename to save the cleaned CSV file', default='.')
 
     args = parser.parse_args()
 

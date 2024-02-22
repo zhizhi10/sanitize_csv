@@ -1,5 +1,5 @@
 # Sanitize CSV Script README
-## Operating environment python2.7
+## Operating environment python3
 ### Usage method
 ```
 git clone https://github.com/zhizhi10/sanitize_csv.git

@@ -5,9 +5,10 @@
 git clone https://github.com/zhizhi10/sanitize_csv.git
 cd sanitize_csv
 chmod +x sanitize_csv.py
-./sanitize_csv.py your_csv_file.csv
+### ./sanitize_csv.py -h
+./sanitize_csv.py your_csv_file.csv -o /vol/xxx
 ```
-The generated filename is sanitized_your_csv_file.csv
+The generated filename is clean_your_csv_file.csv
 
 ### Comparison Before and After Cleaning
 

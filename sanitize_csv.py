@@ -1,7 +1,8 @@
 #!/usr/bin/python3
+import argparse
 import csv
 import os
-import sys
+from datetime import datetime
 
 def escape_formulae(data):
     """Check if data starts with =,+,-,@ or contains tabs or carriage returns.
@@ -28,18 +29,38 @@ def process_csv(input_csv_filename, output_csv_filename):
                     escape_formulae(remove_cmd_string(field)) for field in row
                 ]
                 writer.writerow(sanitized_row)
+    log(f"CSV processing completed. Output saved to: {output_csv_filename}")
 
-def main(input_csv_filename):
-    """Main function to check if the input CSV file exists and process it."""
+def log(message):
+    """Print a log message with a timestamp."""
+    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    print(f"[{timestamp}] {message}")
+
+def main(user_args):
+    input_csv_filename = os.path.abspath(user_args.input_csv)
+    output_dir = os.path.abspath(user_args.output_directory)
+
+    log(f"Input CSV file path: {input_csv_filename}")
+    log(f"Output directory: {output_dir}")
+
     if not os.path.exists(input_csv_filename):
-        print("Error: The file does not exist.")
+        log("Error: The input CSV file does not exist.")
         return
 
-    output_csv_filename = 'sanitized_' + os.path.basename(input_csv_filename)
+    if output_dir and not os.path.exists(output_dir):
+        log("Error: The output directory does not exist.")
+        return
+
+    input_base_name = os.path.basename(input_csv_filename)
+    output_csv_filename = os.path.join(output_dir, 'clean_' + input_base_name)
     process_csv(input_csv_filename, output_csv_filename)
 
+
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Usage: python script.py <input_csv_filename>")
-    else:
-        main(sys.argv[1])
+    parser = argparse.ArgumentParser(description='Process and sanitize a CSV file.')
+    parser.add_argument('input_csv', help='The input CSV file')
+    parser.add_argument('-o', '--output_directory', help='The output directory to save the cleaned CSV file', default='.')
+
+    args = parser.parse_args()
+
+    main(args)

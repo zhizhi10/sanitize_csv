@@ -8,7 +8,7 @@ Created a fakeroot for demonstration, currently there is about 7G of free space 
 ### 1.Create a Sub-partition
 Create a new partition vdb4 with the remaining space. 
 
-As you are using sda, run`(echo n;echo ""; echo "";echo ""; echo w) | sudo fdisk /dev/sda`to create the partition
+As you are using sda, run`(echo n;echo p; echo "";echo ""; echo w) | sudo fdisk /dev/sda`to create the partition
 
 
 ![img_1.png](img_1.png)
